@@ -23,12 +23,12 @@ using Gtk;
 
 
 namespace Aircraft {
-    public static Application app;
+    public static Gtk.Application app;
     public static MainWindow? window;
     public static Client client;
     public static Window window_dummy;
 
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
 
         public abstract signal void toast (string title);
 
@@ -44,7 +44,7 @@ namespace Aircraft {
 
             debug ("Creating a new window...");
 
-            window = new MainWindow(this);
+            window = new MainWindow (this);
             window.build_ui ();
 
             MPRIS.initialize ();
@@ -58,11 +58,11 @@ namespace Aircraft {
             window.show_all ();*/
         }
 
-        protected override void startup(){
-            base.startup();
+        protected override void startup (){
+            base.startup ();
             Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;
 
-            window_dummy = new Window();
+            window_dummy = new Window ();
             add_window (window_dummy);
         }
 

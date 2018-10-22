@@ -3,7 +3,7 @@
 
 ## Pre-requisites
 
-Install [TdLib from Telegram](https://github.com/tdlib/td/): just compile it and make a `sudo make install`. The
+Install [TDLib from Telegram](https://github.com/tdlib/td/): just compile it and make a `sudo make install`. The
 libraries should have been installed in `/usr/local/lib`.
 
 

@@ -36,6 +36,9 @@ dependencies = [
     dependency('gio-unix-2.0', version: '>=2.20'),
     dependency('granite'),
     dependency('tdjson'),
+    dependency('gtk+-3.0'),
+    dependency('json-glib-1.0'),
+    dependency('glib-2.0')
 ]
 
 # Adds subfolders specific build system
@@ -97,7 +100,10 @@ code_files = files(
     'src/Application.vala',
     'src/Client.vala',
     'src/MainWindow.vala',
-    'src/Account.vala'
+    'src/Account.vala',
+    'src/TelegramAccount.vala',
+    'src/Objects/MPRIS.vala',
+    'src/Dialogs/NewAccountDialog.vala'
 )
 
 message ('Defines executable')
