@@ -93,10 +93,10 @@ namespace Aircraft {
         }
 
         private void action_quit () {
-            debug("Quitting...");
+            debug ("Quitting...");
             //client.destroy_client ();
-            this.destroy();
-            
+            destroy ();
+            Gtk.main_quit ();
         }
 
     }

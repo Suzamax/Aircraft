@@ -27,7 +27,7 @@ namespace Aircraft {
     public static MainWindow? window;
     public static Client client;
     public static Window window_dummy;
-    public static Account account;
+    public static Account? account;
 
     public class Application : Gtk.Application {
 
@@ -45,22 +45,14 @@ namespace Aircraft {
 
             debug ("Creating a new window...");
 
-            if (account.is_empty ()) {
+            if (account == null) {
                 NewAccountDialog.open ();
             } else {
                 window = new MainWindow (this);
                 window.build_ui ();
             }
 
-            MPRIS.initialize ();
 
-            /*var window = new Gtk.ApplicationWindow (this);
-            var main = new Gtk.Grid ();
-
-            window.title = "Aircraft";
-            window.set_default_size (900, 640);
-            window.add (main);
-            window.show_all ();*/
         }
 
         protected override void startup (){

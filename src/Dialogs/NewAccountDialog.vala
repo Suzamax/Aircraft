@@ -27,6 +27,9 @@ public class Aircraft.NewAccountDialog : Gtk.Dialog {
         enter_api_id.halign = Gtk.Align.END;
         enter_api_id.set_use_markup (true);
 
+        enter_api_hash = new Label ("Introduce el hash de la API:");
+
+
         show_all ();
     }
 
