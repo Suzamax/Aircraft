@@ -6,11 +6,13 @@ public class Aircraft.Client {
     private string? api_hash;
     private void * client;
 
+    public TelegramAccount acc;
+
     // Client constructor
-    public Client (string api_id, string api_hash) {
+    public Client (TelegramAccount acc) {
         this.client = Td_json.client_create ();
-        this.api_id = api_id;
-        this.api_hash = api_hash;
+        this.api_id = acc.api_id;
+        this.api_hash = acc.api_hash;
     }
 
     public void destroy_client() {

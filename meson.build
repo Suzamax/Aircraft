@@ -1,6 +1,7 @@
 # project name and programming language
 project('com.github.suzamax.Aircraft', 'vala', 'c', version: '0.1.0')
 
+posix_dep = meson.get_compiler('vala').find_library('posix')
 
 message ('project name and programming language')
 
@@ -38,7 +39,8 @@ dependencies = [
     dependency('tdjson'),
     dependency('gtk+-3.0'),
     dependency('json-glib-1.0'),
-    dependency('glib-2.0')
+    dependency('glib-2.0'),
+    posix_dep
 ]
 
 # Adds subfolders specific build system
@@ -102,6 +104,7 @@ code_files = files(
     'src/MainWindow.vala',
     'src/Account.vala',
     'src/TelegramAccount.vala',
+    'src/Utils.vala',
     'src/Objects/MPRIS.vala',
     'src/Dialogs/NewAccountDialog.vala'
 )

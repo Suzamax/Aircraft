@@ -1,79 +1,103 @@
-public class Aircraft.MainWindow : Gtk.Window {
-    // Properties
-    private Gtk.Overlay overlay;
-    private Granite.Widgets.Toast toast;
-    private Gtk.Grid grid;
+namespace Aircraft {
+    public class MainWindow : Gtk.Window {
+        // Properties of windoe
+        private Gtk.Overlay overlay;
+        private Granite.Widgets.Toast toast;
+        private Gtk.Grid grid;
 
-    public Gtk.HeaderBar header;
-    private Gtk.Spinner spinner;
+        public Gtk.HeaderBar header;
+        private Gtk.Spinner spinner;
+        public weak Aircraft.Application app { get; construct; }
+
+        // kbd and other actions
+        public SimpleActionGroup actions { get; construct; }
+
+        public const string ACTION_PREFIX = "win.";
+        public const string ACTION_SHOW_FIND = "action_show_find";
+        public const string ACTION_QUIT = "action_quit";
+
+        public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
+
+        private const ActionEntry[] action_entries = {
+             { ACTION_QUIT, action_quit }
+        };
 
 
-    // Acciones de teclado
-    public const string ACTION_PREFIX = "win.";
-    public const string ACTION_QUIT = "action_quit";
+        // Constructores
+        public MainWindow (Aircraft.Application aircraft_app) {
+            Object(application: aircraft_app,
+                app: aircraft_app,
+                icon_name: "com.github.suzamax.Aircraft",
+                resizable: true
+            );
+        }
+        static construct {
+             action_accelerators.set (ACTION_QUIT, "<Control>q");
+        }
+        construct {
+             actions = new SimpleActionGroup ();
 
-    public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
+             app.set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, {"<Control>q", "<Control>w"});
 
-    private const ActionEntry[] action_entries = {
-         { ACTION_QUIT, action_quit }
-    };
+             key_press_event.connect (on_key_pressed);
 
 
-    // Constructor
-    static construct {
-         action_accelerators.set (ACTION_QUIT, "<Control>q");
+             Unix.signal_add (Posix.Signal.INT, quit_source_func, Priority.HIGH);
+             Unix.signal_add (Posix.Signal.TERM, quit_source_func, Priority.HIGH);
+
+
+        }
+
+        public void build_ui () {
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource("com/github/suzamax/Aircraft/app.css");
+
+            spinner = new Gtk.Spinner();
+            spinner.active = true;
+
+            header = new Gtk.HeaderBar ();
+            header.show_close_button = true;
+            header.title = "Aircraft";
+            header.show_all();
+
+            grid = new Gtk.Grid();
+
+            toast = new Granite.Widgets.Toast ("");
+            overlay = new Gtk.Overlay();
+            overlay.add_overlay(grid);
+            overlay.add_overlay(toast);
+            overlay.set_size_request (800, 600);
+            add (overlay);
+
+            window_position = Gtk.WindowPosition.CENTER;
+            set_titlebar(header);
+
+            show_all ();
+            //app.toast.connect (on_toast);
+
+        }
+
+        /*private void on_toast (string msg){
+            toast.title = msg;
+            toast.send_notification();
+        }*/
+
+        private bool on_key_pressed (Gdk.EventKey event) {
+
+            // propagate this event to child widgets
+            return false;
+        }
+
+        public bool quit_source_func () {
+            action_quit ();
+            return false;
+        }
+
+        private void action_quit () {
+            debug("Quitting...");
+            //client.destroy_client ();
+            this.destroy();
+        }
+
     }
-
-    construct {
-         application.set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, {"<Control>q", "<Control>w"});
-    }
-
-    public MainWindow (Gtk.Application app) {
-        Object(application: app,
-            icon_name: "com.github.suzamax.Aircraft",
-            resizable: true
-        );
-
-    }
-
-    public void build_ui () {
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_resource("com/github/suzamax/Aircraft/app.css");
-
-        spinner = new Gtk.Spinner();
-        spinner.active = true;
-
-        header = new Gtk.HeaderBar ();
-        header.show_close_button = true;
-        header.title = "Aircraft";
-        header.show_all();
-
-        grid = new Gtk.Grid();
-
-        toast = new Granite.Widgets.Toast ("");
-        overlay = new Gtk.Overlay();
-        overlay.add_overlay(grid);
-        overlay.add_overlay(toast);
-        overlay.set_size_request (800, 600);
-        add (overlay);
-
-        window_position = Gtk.WindowPosition.CENTER;
-        set_titlebar(header);
-
-        show_all ();
-        //app.toast.connect (on_toast);
-
-    }
-
-    /*private void on_toast (string msg){
-        toast.title = msg;
-        toast.send_notification();
-    }*/
-
-    private void action_quit () {
-        debug("Quitting...");
-        //client.destroy_client ();
-        this.destroy();
-    }
-
 }
