@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=
-Comment=
-GenericName=
+Name=Aircraft
+Comment=The elementary-styled Telegram client
+GenericName=Aircraft
 Exec=@EXEC_NAME@ %U
 Icon=com.github.suzamax.Aircraft
 Terminal=false

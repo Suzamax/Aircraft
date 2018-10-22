@@ -1,0 +1,49 @@
+.mode .button{
+    border-radius:0px;
+    border-top:none;
+    border-bottom:none;
+    padding:10px;
+}
+
+.button_avatar{
+    padding:0;
+    border:0;
+    box-shadow:none;
+    background:none;
+}
+
+.toot-text{
+    background: none;
+}
+
+.header{
+    background-size: cover;
+    background-position: 50%;
+    opacity: 0.15;
+}
+
+.attachment{
+    border-radius: 3px;
+}
+
+.relationship {
+    background: rgba (0,0,0,.5);
+    padding: 6px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+@define-color colorAccent #0088cc;
+@define-color colorPrimary #0088cc;
+
+.header-counters{
+    background: rgba(255,255,255,.4);
+}
+
+.attachment{
+    background: rgba (255,255,255,.8);
+}
+
+.card{
+    background: #fff;
+}

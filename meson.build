@@ -94,7 +94,10 @@ appstream_file = i18n.merge_file(
 message ('Adds files to build')
 
 code_files = files(
-    'src/Application.vala'
+    'src/Application.vala',
+    'src/Client.vala',
+    'src/MainWindow.vala',
+    'src/Account.vala'
 )
 
 message ('Defines executable')

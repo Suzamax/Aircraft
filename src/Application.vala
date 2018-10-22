@@ -1,5 +1,5 @@
 /*
-* Copyright (c) {{yearrange}} Carlos Cañellas Tovar (https://www.suzamax.one)
+* Copyright (c) 2018 Carlos Cañellas Tovar (https://www.suzamax.one)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,12 +19,18 @@
 * Authored by: Carlos Cañellas Tovar <https://www.suzamax.one>
 */
 using Granite;
-using Granite.Widgets;
 using Gtk;
-using Td_json;
+
 
 namespace Aircraft {
+    public static Application app;
+    public static MainWindow? window;
+    public static Client client;
+    public static Window window_dummy;
+
     public class Application : Granite.Application {
+
+        public abstract signal void toast (string title);
 
         public Application () {
             Object(
@@ -34,19 +40,36 @@ namespace Aircraft {
         }
 
         protected override void activate () {
-            var window = new Gtk.ApplicationWindow (this);
+            if (window != null) return;
+
+            debug ("Creating a new window...");
+
+            window = new MainWindow(this);
+            window.build_ui ();
+
+            MPRIS.initialize ();
+
+            /*var window = new Gtk.ApplicationWindow (this);
             var main = new Gtk.Grid ();
 
             window.title = "Aircraft";
             window.set_default_size (900, 640);
             window.add (main);
-            window.show_all ();
+            window.show_all ();*/
+        }
+
+        protected override void startup(){
+            base.startup();
+            Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;
+
+            window_dummy = new Window();
+            add_window (window_dummy);
         }
 
         public static int main (string[] args) {
+            Gtk.init (ref args);
             var app = new Aircraft.Application ();
-            void * client = Td_json.client_create();
-            Td_json.client_destroy(client);
+            //var client = new Client();
             return app.run (args);
         }
     }
