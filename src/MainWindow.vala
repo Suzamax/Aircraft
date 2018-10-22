@@ -32,19 +32,18 @@ namespace Aircraft {
             );
         }
         static construct {
-             action_accelerators.set (ACTION_QUIT, "<Control>q");
+            action_accelerators.set (ACTION_QUIT, "<Control>q");
         }
         construct {
-             actions = new SimpleActionGroup ();
+            actions = new SimpleActionGroup ();
+            actions.add_action_entries (action_entries, this);
+            insert_action_group ("win", actions);
 
-             app.set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, {"<Control>q", "<Control>w"});
+            app.set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, {"<Control>q", "<Control>w"});
+            key_press_event.connect (on_key_pressed);
 
-             key_press_event.connect (on_key_pressed);
-
-
-             Unix.signal_add (Posix.Signal.INT, quit_source_func, Priority.HIGH);
-             Unix.signal_add (Posix.Signal.TERM, quit_source_func, Priority.HIGH);
-
+            Unix.signal_add (Posix.Signal.INT, quit_source_func, Priority.HIGH);
+            Unix.signal_add (Posix.Signal.TERM, quit_source_func, Priority.HIGH);
 
         }
 
@@ -97,6 +96,7 @@ namespace Aircraft {
             debug("Quitting...");
             //client.destroy_client ();
             this.destroy();
+            
         }
 
     }
