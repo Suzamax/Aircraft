@@ -1,4 +1,6 @@
 namespace Aircraft {
+
+
     public class MainWindow : Gtk.Window {
 
         // Properties of window
@@ -94,9 +96,11 @@ namespace Aircraft {
 
         private void action_quit () {
             debug ("Quitting...");
-            client.destroy_client ();
-            destroy ();
-            Process.exit (0);
+            if (telegram_client != null) {
+                telegram_client.destroy_client ();
+                destroy ();
+                Process.exit (0);
+            } else print("HAHA");
         }
 
     }

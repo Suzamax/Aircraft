@@ -26,9 +26,9 @@ namespace Aircraft {
     public static Gtk.Application app;
     public static Window window_dummy;
 
-    public Client client; // The TDLib JSON Client
-    public Account? account; // The accounts handler
-    public MainWindow window; // Main Window is handled here
+    public static Client? telegram_client; // The TDLib JSON Client
+    public static Account? account; // The accounts handler
+    public static MainWindow window; // Main Window is handled here
 
     public class Application : Gtk.Application {
 
@@ -45,10 +45,13 @@ namespace Aircraft {
 
             debug ("Creating a new window...");
 
-            if (account == null) {
+            if (account.is_empty ()) {
                 NewAccountDialog.open ();
-            } else
+            } else {
+                window = new MainWindow (this);
                 window.build_ui ();
+            }
+
 
         }
 
@@ -65,10 +68,12 @@ namespace Aircraft {
             var app = new Aircraft.Application ();
             account = new Account (app);
             account.init ();
-            TelegramAccount telegram_account = account.get_account ();
-            Client client = new Client (telegram_account);
+            var telegram_client = account.get_client ();
+            telegram_client.test ();
 
             return app.run (args);
         }
+
+
     }
 }

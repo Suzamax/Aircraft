@@ -4,7 +4,8 @@ public class Aircraft.Account : Object {
     private string dir_path;
     private string file_path;
 
-    public TelegramAccount? acc;
+    private Client tdclient;
+    private TelegramAccount? acc;
 
     public Account (Gtk.Application app) {
         Object();
@@ -71,26 +72,21 @@ public class Aircraft.Account : Object {
 
 
     public bool is_empty () {
-        return acc == null;
+        return this.acc == null;
     }
 
     public void init () {
         load ();
 
-        if (is_empty ())
-            NewAccountDialog.open ();
-        else {
-            Client client = new Client (this.acc);
-            client.create_client ();
+        if (this.acc != null) {
+            this.tdclient = new Client (this.acc);
+            tdclient.create_client ();
         }
     }
 
-    public TelegramAccount get_account () {
-        return this.acc;
+    public Client get_client () {
+        return this.tdclient;
     }
-
-
-
 
 
 }
