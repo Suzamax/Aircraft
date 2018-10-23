@@ -16,8 +16,7 @@ public class Aircraft.NewAccountDialog : Gtk.Dialog {
             border_width: 6,
             deletable: true,
             resizable: false,
-            title: "Add account",
-            transient_for: window
+            title: "Add account"
         );
 
         api_id = new Gtk.Entry ();

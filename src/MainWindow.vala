@@ -1,6 +1,7 @@
 namespace Aircraft {
     public class MainWindow : Gtk.Window {
-        // Properties of windoe
+
+        // Properties of window
         private Gtk.Overlay overlay;
         private Granite.Widgets.Toast toast;
         private Gtk.Grid grid;
@@ -21,7 +22,6 @@ namespace Aircraft {
         private const ActionEntry[] action_entries = {
              { ACTION_QUIT, action_quit }
         };
-
 
         // Constructores
         public MainWindow (Aircraft.Application aircraft_app) {
@@ -94,9 +94,9 @@ namespace Aircraft {
 
         private void action_quit () {
             debug ("Quitting...");
-            //client.destroy_client ();
+
             destroy ();
-            Gtk.main_quit ();
+            Process.exit (0);
         }
 
     }

@@ -6,9 +6,9 @@ public class Aircraft.Account : Object {
 
     public TelegramAccount? acc;
 
-    public Account () {
+    public Account (Gtk.Application app) {
         Object();
-        this.dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), Aircraft.app.application_id);
+        this.dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), app.application_id);
         this.file_path = "%s/%s".printf (dir_path, "account.json");
     }
 
@@ -61,8 +61,7 @@ public class Aircraft.Account : Object {
                 var account = TelegramAccount.parse (obj);
 
                 if (account != null) {
-                    acc = new TelegramAccount ();
-                    acc.parse (obj);
+                    acc = TelegramAccount.parse (obj);
                 }
             });
 
@@ -80,9 +79,15 @@ public class Aircraft.Account : Object {
 
         if (is_empty ())
             NewAccountDialog.open ();
-
+        else {
+            Client client = new Client (this.acc);
+            client.create_client ();
+        }
     }
 
+    public TelegramAccount get_account () {
+        return this.acc;
+    }
 
 
 

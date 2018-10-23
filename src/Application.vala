@@ -24,34 +24,29 @@ using Gtk;
 
 namespace Aircraft {
     public static Gtk.Application app;
-    public static MainWindow? window;
-    public static Client client;
     public static Window window_dummy;
-    public static Account? account;
+    public static Handler handler;
 
     public class Application : Gtk.Application {
 
         public abstract signal void toast (string title);
 
-        public Application () {
-            Object(
-                application_id: "com.github.suzamax.Aircraft",
-                flags: ApplicationFlags.FLAGS_NONE
-            );
+        construct {
+            application_id = "com.github.suzamax.Aircraft";
+            flags = ApplicationFlags.FLAGS_NONE;
         }
 
+
         protected override void activate () {
-            if (window != null) return;
+            Handler handler = new Handler(this);
+            if (handler.get_window () != null) return;
 
             debug ("Creating a new window...");
 
-            if (account == null) {
+            if (handler.get_account () == null) {
                 NewAccountDialog.open ();
-            } else {
-                window = new MainWindow (this);
-                window.build_ui ();
-            }
-
+            } else
+                handler.new_window (this);
 
         }
 
@@ -66,7 +61,11 @@ namespace Aircraft {
         public static int main (string[] args) {
             Gtk.init (ref args);
             var app = new Aircraft.Application ();
-            //var client = new Client();
+//          account = new Account (app);
+//          account.init ();
+//          TelegramAccount telegram_account = account.get_account ();
+//          Client client = new Client (telegram_account);
+
             return app.run (args);
         }
     }
