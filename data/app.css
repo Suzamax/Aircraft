@@ -1,10 +1,11 @@
-.mode .button{
+.mode .toggle{
     border-radius:0px;
     border-top:none;
     border-bottom:none;
     padding:10px;
+    margin:0px;
 }
-
+        
 .button_avatar{
     padding:0;
     border:0;
@@ -12,8 +13,8 @@
     background:none;
 }
 
-.toot-text{
-    background: none;
+.toot-text, .toot-text text{
+    background-color: transparent;
 }
 
 .header{
@@ -31,19 +32,4 @@
     padding: 6px;
     border-radius: 3px;
     color: #fff;
-}
-
-@define-color colorAccent #0088cc;
-@define-color colorPrimary #0088cc;
-
-.header-counters{
-    background: rgba(255,255,255,.4);
-}
-
-.attachment{
-    background: rgba (255,255,255,.8);
-}
-
-.card{
-    background: #fff;
 }

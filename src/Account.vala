@@ -27,7 +27,7 @@ public class Aircraft.Account : Object {
             builder.begin_array ();
             var node = acc.serialize ();
             builder.add_value (node);
-            //});
+
             builder.end_array ();
 
             var generator = new Json.Generator ();
@@ -86,6 +86,15 @@ public class Aircraft.Account : Object {
 
     public Client get_client () {
         return this.tdclient;
+    }
+
+    public TelegramAccount get_account () {
+        return this.acc;
+    }
+
+    public void add (TelegramAccount tac) {
+        debug ("Adding the user...");
+        save ();
     }
 
 

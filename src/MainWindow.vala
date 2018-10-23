@@ -8,6 +8,7 @@ namespace Aircraft {
         private Gtk.Overlay overlay;
         private Granite.Widgets.Toast toast;
         private Gtk.Grid grid;
+        private Gtk.Label apihash;
 
         public Gtk.HeaderBar header;
         private Gtk.Spinner spinner;
@@ -55,6 +56,9 @@ namespace Aircraft {
         public void build_ui () {
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource("com/github/suzamax/Aircraft/app.css");
+            provider.load_from_resource ("/com/github/suzamax/Aircraft/light.css");
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             spinner = new Gtk.Spinner();
             spinner.active = true;
@@ -64,6 +68,7 @@ namespace Aircraft {
             header.title = "Aircraft";
             header.show_all();
 
+            this.apihash = new Gtk.Label (mc.get_account ().get_account ().api_hash);
             grid = new Gtk.Grid();
 
             toast = new Granite.Widgets.Toast ("");
@@ -72,6 +77,8 @@ namespace Aircraft {
             overlay.add_overlay(toast);
             overlay.set_size_request (800, 600);
             add (overlay);
+
+            grid.attach (this.apihash, 1, 1);
 
             window_position = Gtk.WindowPosition.CENTER;
             set_titlebar(header);
@@ -106,6 +113,7 @@ namespace Aircraft {
                 Process.exit (0);
             } else print("HAHA");
         }
+
 
     }
 }

@@ -70,8 +70,9 @@ namespace Aircraft {
             var app = new Aircraft.Application ();
             account = new Account (app);
             account.init ();
-            app.meta = new MetadataComponent(account.get_client ());
+            app.meta = new MetadataComponent(account.get_client (), account);
             app.meta.get_client ().test ();
+            app.meta.get_client ().auth (account);
 
             return app.run (args);
         }

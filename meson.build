@@ -1,6 +1,8 @@
 # project name and programming language
 project('com.github.suzamax.Aircraft', 'vala', 'c', version: '0.1.0')
 
+gnome = import('gnome')
+
 posix_dep = meson.get_compiler('vala').find_library('posix')
 
 message ('project name and programming language')
@@ -16,6 +18,13 @@ add_project_arguments([
     ],
     language: 'c',
 )
+
+asresources = gnome.compile_resources(
+  'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
+  source_dir: 'data',
+  c_name: 'as'
+)
+
 
 # Include the translations module
 message('Include the translations module')
@@ -113,6 +122,7 @@ message ('Defines executable')
 
 executable(
     meson.project_name(),
+    asresources,
     code_files,
     dependencies: dependencies,
     install: true
