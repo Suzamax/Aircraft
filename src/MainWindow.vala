@@ -2,7 +2,8 @@ namespace Aircraft {
 
 
     public class MainWindow : Gtk.Window {
-
+        // Metadatos
+        private MetadataComponent mc;
         // Properties of window
         private Gtk.Overlay overlay;
         private Granite.Widgets.Toast toast;
@@ -26,12 +27,14 @@ namespace Aircraft {
         };
 
         // Constructores
-        public MainWindow (Aircraft.Application aircraft_app) {
+        public MainWindow (Aircraft.Application aircraft_app, MetadataComponent mc) {
             Object(application: aircraft_app,
                 app: aircraft_app,
                 icon_name: "com.github.suzamax.Aircraft",
                 resizable: true
             );
+
+            this.mc = mc;
         }
         static construct {
             action_accelerators.set (ACTION_QUIT, "<Control>q");
@@ -96,8 +99,9 @@ namespace Aircraft {
 
         private void action_quit () {
             debug ("Quitting...");
-            if (telegram_client != null) {
-                telegram_client.destroy_client ();
+            var client = this.mc.get_client ();
+            if (client != null) {
+                client.destroy_client ();
                 destroy ();
                 Process.exit (0);
             } else print("HAHA");

@@ -24,6 +24,10 @@ namespace Aircraft {
             Td_json.client_destroy (this.client);
         }
 
+        private void execute (string data) {
+            Td_json.client_execute (this.client, data);
+        }
+
         public void test () {
             string test_data =
             """
@@ -33,15 +37,7 @@ namespace Aircraft {
                     "@extra": ["5", 7.0]
                 }
             """;
-            Json.Parser parser = new Json.Parser ();
-            try {
-                parser.load_from_data (test_data);
-                Json.Node node = parser.get_root ();
-                var data = node.get_object ();
-                Td_json.client_execute (this.client, test_data  );
-            } catch (Error e) {
-                print ("Unable to parse the string: %s\n", e.message);
-            }
+            this.execute (test_data);
         }
 
     }
