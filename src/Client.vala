@@ -24,8 +24,8 @@ namespace Aircraft {
             Td_json.client_destroy (this.client);
         }
 
-        private void execute (string data) {
-            Td_json.client_execute (this.client, data);
+        private string execute (string data) {
+            return Td_json.client_execute (this.client, data);
         }
 
         private void send (string data) {
@@ -36,7 +36,7 @@ namespace Aircraft {
             Td_json.client_receive (this.client, 1.0);
         }
 
-        public void test () {
+        public string test () {
             string test_data =
             """
                 {
@@ -45,7 +45,7 @@ namespace Aircraft {
                     "@extra": ["5", 7.0]
                 }
             """;
-            this.execute (test_data);
+            return this.execute (test_data);
         }
 
         public void auth (Account a) {
@@ -68,7 +68,6 @@ namespace Aircraft {
                     ]
                 }
             """;
-
             this.send(test_data);
         }
 
