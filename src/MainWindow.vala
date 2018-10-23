@@ -94,7 +94,7 @@ namespace Aircraft {
 
         private void action_quit () {
             debug ("Quitting...");
-
+            client.destroy_client ();
             destroy ();
             Process.exit (0);
         }

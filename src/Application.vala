@@ -25,7 +25,10 @@ using Gtk;
 namespace Aircraft {
     public static Gtk.Application app;
     public static Window window_dummy;
-    public static Handler handler;
+
+    public Client client; // The TDLib JSON Client
+    public Account? account; // The accounts handler
+    public MainWindow window; // Main Window is handled here
 
     public class Application : Gtk.Application {
 
@@ -38,15 +41,14 @@ namespace Aircraft {
 
 
         protected override void activate () {
-            Handler handler = new Handler(this);
-            if (handler.get_window () != null) return;
+            if (window != null) return;
 
             debug ("Creating a new window...");
 
-            if (handler.get_account () == null) {
+            if (account == null) {
                 NewAccountDialog.open ();
             } else
-                handler.new_window (this);
+                window.build_ui ();
 
         }
 
@@ -61,10 +63,10 @@ namespace Aircraft {
         public static int main (string[] args) {
             Gtk.init (ref args);
             var app = new Aircraft.Application ();
-//          account = new Account (app);
-//          account.init ();
-//          TelegramAccount telegram_account = account.get_account ();
-//          Client client = new Client (telegram_account);
+            account = new Account (app);
+            account.init ();
+            TelegramAccount telegram_account = account.get_account ();
+            Client client = new Client (telegram_account);
 
             return app.run (args);
         }

@@ -22,5 +22,4 @@ public class Aircraft.Client {
         Td_json.client_destroy (this.client);
     }
 
-
 }
