@@ -49,26 +49,31 @@ namespace Aircraft {
         }
 
         public void auth (Account a) {
-            /*string username = a.get_account ().username;
+            string username = a.get_account ().username;
             string number = a.get_account ().number;
             string api_id = a.get_account ().api_id;
             string api_hash = a.get_account ().api_hash;
             string dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), "com.github.suzamax.Aircraft");
-            string db_path = "%s/%s".printf (dir_path, "database");*/
-            string test_data =
+            string db_path = "%s/%s".printf (dir_path, "database");
+            string data =
             """
                 {
                     "@type":  "setTdlibParameters",
-                    "parameters": [
-                           "database_directory": "$HOME/.config/com.github.suzamax.Aircraft/database",
-                           "use_message_database": true,
-                           "api_id": "xxxxxx"
-                           "api_hash" "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                           "system_version": "elementary Juno"
-                    ]
+                    "parameters":
+                    {
+                        "application_version": "0.1.0",
+                        "database_directory": "$HOME/.config/com.github.suzamax.Aircraft/database",
+                        "use_message_database": true,
+                        "api_id": "%s",
+                        "api_hash": "%s",
+                        "system_version": "elementary Juno",
+                        "system_language_code": "es",
+                        "device_model": "Desktop",
+                        "files_directory": "$HOME/Downloads/"
+                    }
                 }
-            """;
-            this.send(test_data);
+            """.printf(api_id, api_hash);
+            this.send(data);
         }
 
     }
