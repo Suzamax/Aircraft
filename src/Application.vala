@@ -73,7 +73,7 @@ namespace Aircraft {
             account = new Account (app);
             account.init ();
             app.meta = new MetadataComponent(account.get_client (), account);
-            print (app.meta.get_client ().test ());
+            //print (app.meta.get_client ().test ());
             app.meta.get_client ().auth (account);
 
             // Create Launcher ??

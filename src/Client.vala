@@ -137,7 +137,7 @@ namespace Aircraft {
             this.send (data);
         }
 
-        public string status () {
+        public void status () {
             string data =
             """
                 {
@@ -146,7 +146,6 @@ namespace Aircraft {
             """;
 
             this.send (data);
-            return this.receive ();
         }
 
     }

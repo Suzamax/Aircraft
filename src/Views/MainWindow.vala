@@ -92,17 +92,16 @@ namespace Aircraft {
             var conn = new Connection (this.mc);
             conn.init_connection ();
             conn.pass_phone (); // aquí llamar a un diálogo para obtener la clave.
-            //while (true) {
-
-                /*
-                string lastlog = log.log ();
-                if (lastlog.contains ("authorizationStateWaitCode")) {
+            while (true) {
+                string status = conn.get_status ();
+                if (status.contains ("authorizationStateWaitCode")) {
                     conn.get_code ();
                     break;
-                }
-                if (lastlog.contains ("authorizationStateReady")) break;
-                */
-            //}
+                } else if (status.contains ("authorizationStateReady")) break;
+
+            }
+
+
             conn.get_chat_list ();
 
 

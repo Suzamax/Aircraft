@@ -40,12 +40,17 @@ namespace Aircraft {
         }
 
 
+
         public void get_chat_list () {
             this.updater.updater ();
             this.updater.updater ();
             this.updater.get_chats ();
         }
 
+        public string get_status () {
+            this.mc.get_client ().status ();
+            return this.mc.get_client ().receive ();
+        }
 
     }
 
