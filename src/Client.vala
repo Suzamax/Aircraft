@@ -32,9 +32,16 @@ namespace Aircraft {
             Td_json.client_send(this.client, data);
         }
 
-        private void receive () {
-            Td_json.client_receive (this.client, 1.0);
+        public string receive () {
+            return Td_json.client_receive (this.client, 1.0);
         }
+
+
+
+
+
+
+        // Ejemplo
 
         public string test () {
             string test_data =
@@ -62,19 +69,31 @@ namespace Aircraft {
                     "parameters":
                     {
                         "application_version": "0.1.0",
-                        "database_directory": "$HOME/.config/com.github.suzamax.Aircraft/database",
+                        "database_directory": "%s",
                         "use_message_database": true,
                         "api_id": "%s",
                         "api_hash": "%s",
                         "system_version": "elementary Juno",
-                        "system_language_code": "es",
+                        "system_language_code": "en",
                         "device_model": "Desktop",
-                        "files_directory": "$HOME/Downloads/"
+                        "files_directory": "$HOME/Aircraft/"
                     }
                 }
-            """.printf(api_id, api_hash);
+            """.printf(db_path, api_id, api_hash);
             this.send(data);
         }
+
+        public void encrypt () {
+            string data =
+            """
+                {
+                    "@type": "checkDatabaseEncryptionKey",
+                    "setEncryptionKey": ""
+                }
+            """;
+            this.send (data);
+        }
+
 
     }
 }

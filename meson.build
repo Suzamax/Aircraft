@@ -108,14 +108,15 @@ appstream_file = i18n.merge_file(
 message ('Adds files to build')
 
 code_files = files(
+    'src/Account.vala',
     'src/Application.vala',
     'src/Client.vala',
-    'src/MainWindow.vala',
-    'src/Account.vala',
-    'src/TelegramAccount.vala',
-    'src/Utils.vala',
     'src/MetadataComponent.vala',
-    'src/Dialogs/NewAccountDialog.vala'
+    'src/TelegramAccount.vala',
+    'src/UpdateHandler.vala',
+    'src/Dialogs/NewAccountDialog.vala',
+    'src/Utils/ActionUtils.vala',
+    'src/Views/MainWindow.vala'
 )
 
 message ('Defines executable')

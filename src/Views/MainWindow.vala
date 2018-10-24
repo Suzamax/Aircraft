@@ -86,6 +86,8 @@ namespace Aircraft {
             show_all ();
             //app.toast.connect (on_toast);
 
+            this.update_window ();
+
         }
 
         /*private void on_toast (string msg){
@@ -114,6 +116,20 @@ namespace Aircraft {
             } else print("HAHA");
         }
 
+        public void update_window () {
+            var updater = new UpdateHandler (this.mc);
+            updater.update.connect (updater.telegram_signal);
+            updater.updater ();
 
+            updater.updater ();
+            updater.update.connect (updater.telegram_signal);
+            string tud = updater.get_meta ().get_last_update ();
+            if (tud == null) print ("miau\n");
+            print ("%s\n", tud);
+            if (tud.contains ("authorizationStateWaitEncryptionKey")) {
+                print ("miau\n");
+                updater.get_meta ().get_client ().encrypt ();
+            }
+        }
     }
 }
