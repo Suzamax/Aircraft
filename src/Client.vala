@@ -1,4 +1,5 @@
 using Td_json;
+using Td_log;
 using Json;
 
 namespace Aircraft {
@@ -7,13 +8,18 @@ namespace Aircraft {
         private string? api_id;
         private string? api_hash;
         private void * client;
+        private string dir_path;
 
         //public TelegramAccount acc;
+
 
         // Client constructor
         public Client (TelegramAccount acc) {
             this.api_id = acc.api_id;
             this.api_hash = acc.api_hash;
+            this.dir_path = "%s/com.github.suzamax.Aircraft".printf (GLib.Environment.get_user_config_dir ());
+            Td_log.file_path ("%s/log.txt".printf(this.dir_path));
+            Td_log.verbosity_level(3);
         }
 
         public void create_client () {
@@ -125,7 +131,7 @@ namespace Aircraft {
             """
                 {
                     "@type": "checkAuthenticationCode",
-                    "code": %s
+                    "code": "%s"
                 }
             """.printf (code);
             this.send (data);

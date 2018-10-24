@@ -4,7 +4,6 @@ namespace Aircraft {
 
         private MetadataComponent mc;
         private UpdateHandler updater;
-        private Logger log;
 
         public Connection (MetadataComponent mc) {
             this.mc = mc;
@@ -17,17 +16,13 @@ namespace Aircraft {
             this.updater.update.connect (updater.telegram_signal);
             string tud = updater.get_meta ().get_last_update ();
 //          print ("%s\n", tud);
-            if (tud.contains ("authorizationStateWaitEncryptionKey")) {
+            //if (tud.contains ("authorizationStateWaitEncryptionKey")) {
                 updater.get_meta ().get_client ().encrypt ();
-                this.updater.update.connect (updater.telegram_signal);
-                this.updater.updater ();
-            }
+                //this.updater.update.connect (updater.telegram_signal);
+                //this.updater.updater ();
+            //}
 
-            this.log = new Logger (this.mc);
-        }
-
-        public void get_logs () {
-            this.log.log ();
+            //this.log = new Logger (this.mc);
         }
 
         public void pass_phone () {

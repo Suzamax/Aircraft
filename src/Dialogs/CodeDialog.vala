@@ -1,6 +1,6 @@
 public class Aircraft.CodeDialog : Gtk.Dialog {
 
-    private static CodeDialog dialog;
+    private static CodeDialog codedialog;
     private MetadataComponent mc;
 
     private Gtk.Grid grid;
@@ -28,7 +28,10 @@ public class Aircraft.CodeDialog : Gtk.Dialog {
         this.label = new Gtk.Label ("Enter the code");
 
         this.button_done = new Gtk.Button.with_label ("OK");
-        this.button_done.clicked.connect (() => this.mc.get_client ().code (this.code.get_text ()));
+        this.button_done.clicked.connect (() => {
+            this.mc.get_client ().code (this.code.get_text ());
+            destroy ();
+        });
 
         grid = new Gtk.Grid ();
         grid.column_spacing = 12;
@@ -51,7 +54,7 @@ public class Aircraft.CodeDialog : Gtk.Dialog {
 
 
     public static void open (MetadataComponent mc) {
-        if (dialog == null)
-            dialog = new CodeDialog (mc);
+        if (codedialog == null)
+            codedialog = new CodeDialog (mc);
     }
 }

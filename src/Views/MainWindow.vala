@@ -88,11 +88,26 @@ namespace Aircraft {
             show_all ();
             //app.toast.connect (on_toast);
 
+
             var conn = new Connection (this.mc);
             conn.init_connection ();
             conn.pass_phone (); // aquí llamar a un diálogo para obtener la clave.
-            conn.get_code ();
+            //while (true) {
+
+                /*
+                string lastlog = log.log ();
+                if (lastlog.contains ("authorizationStateWaitCode")) {
+                    conn.get_code ();
+                    break;
+                }
+                if (lastlog.contains ("authorizationStateReady")) break;
+                */
+            //}
             conn.get_chat_list ();
+
+
+
+
 
         }
 
@@ -119,7 +134,7 @@ namespace Aircraft {
                 client.destroy_client ();
                 destroy ();
                 Process.exit (0);
-            } else print("HAHA");
+            }
         }
 
 
