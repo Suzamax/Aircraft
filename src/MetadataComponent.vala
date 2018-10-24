@@ -16,6 +16,9 @@ namespace Aircraft {
         public string get_last_update () {
             return this.last_update;
         }
+        public string get_status () {
+            return this.tc.status ();
+        }
 
         public Client get_client () {
             return this.tc;

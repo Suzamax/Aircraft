@@ -33,7 +33,7 @@ namespace Aircraft {
         }
 
         public string receive () {
-            return Td_json.client_receive (this.client, 1.0);
+            return Td_json.client_receive (this.client, 2.0);
         }
 
 
@@ -76,11 +76,11 @@ namespace Aircraft {
                         "system_version": "elementary Juno",
                         "system_language_code": "en",
                         "device_model": "Desktop",
-                        "files_directory": "$HOME/Aircraft/"
+                        "files_directory": "%s/storage"
                     }
                 }
-            """.printf(db_path, api_id, api_hash);
-            this.send(data);
+            """.printf (db_path, api_id, api_hash, dir_path);
+            this.send (data);
         }
 
         public void encrypt () {
@@ -94,6 +94,54 @@ namespace Aircraft {
             this.send (data);
         }
 
+
+        public void chats () {
+            string data =
+            """
+                {
+                    "@type": "getChats",
+                    "offsetOrder": 9223372036854775807,
+                    "offsetChatId": 0,
+                    "limit": 20
+                }
+            """;
+            this.send (data);
+        }
+
+        public void phone () {
+            string data =
+            """
+                {
+                    "@type": "setAuthenticationPhoneNumber",
+                    "phone_number": "+34609370884"
+                }
+            """;
+            this.send (data);
+        }
+
+
+        public void code (string code) {
+            string data =
+            """
+                {
+                    "@type": "checkAuthenticationCode",
+                    "code": %s
+                }
+            """.printf (code);
+            this.send (data);
+        }
+
+        public string status () {
+            string data =
+            """
+                {
+                    "@type": "getAuthorizationState"
+                }
+            """;
+
+            this.send (data);
+            return this.receive ();
+        }
 
     }
 }

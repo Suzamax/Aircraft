@@ -25,33 +25,26 @@ using Gtk;
 namespace Aircraft {
     public static Gtk.Application app;
 
-    //public static Launcher launcher;
-
-    // TODO Remove this as I'm using a launcher
     public static Window window_dummy;
 
     public static Client telegram_client; // The TDLib JSON Client
     public static Account? account; // The accounts handler
     public static MainWindow window; // Main Window is handled here
-    // TODO_END
+
     public class Application : Gtk.Application {
 
         public MetadataComponent meta;
 
-        //public abstract signal void toast (string title);
+
 
         construct {
             application_id = "com.github.suzamax.Aircraft";
             flags = ApplicationFlags.FLAGS_NONE;
         }
 
-        // TODO !!! move it to the Launcher.vala
-        protected override void activate () {
-        /*
-            var launcher = new Launcher (this, window, meta);
 
-            launcher.launch_window ();
-        /*/
+        protected override void activate () {
+
             if (window != null) return;
 
             debug ("Creating a new window...");
@@ -63,10 +56,9 @@ namespace Aircraft {
                 window.build_ui ();
 
             }
-        /**/
+
         }
 
-        // TODO Should I move it to the Launcher.vala?
         protected override void startup (){
             base.startup ();
             Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;

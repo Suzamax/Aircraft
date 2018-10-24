@@ -111,9 +111,12 @@ code_files = files(
     'src/Account.vala',
     'src/Application.vala',
     'src/Client.vala',
+    'src/Connection.vala',
+    'src/Logger.vala',
     'src/MetadataComponent.vala',
     'src/TelegramAccount.vala',
     'src/UpdateHandler.vala',
+    'src/Dialogs/CodeDialog.vala',
     'src/Dialogs/NewAccountDialog.vala',
     'src/Utils/ActionUtils.vala',
     'src/Views/MainWindow.vala'

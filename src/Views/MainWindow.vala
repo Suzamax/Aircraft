@@ -9,6 +9,7 @@ namespace Aircraft {
         private Granite.Widgets.Toast toast;
         private Gtk.Grid grid;
         private Gtk.Label apihash;
+        private Gtk.Label demo;
 
         public Gtk.HeaderBar header;
         private Gtk.Spinner spinner;
@@ -68,7 +69,8 @@ namespace Aircraft {
             header.title = "Aircraft";
             header.show_all();
 
-            this.apihash = new Gtk.Label (mc.get_account ().get_account ().api_hash);
+            //this.apihash = new Gtk.Label (mc.get_account ().get_account ().api_hash);
+            this.demo = new Gtk.Label ("IT WORKS!");
             grid = new Gtk.Grid();
 
             toast = new Granite.Widgets.Toast ("");
@@ -78,7 +80,7 @@ namespace Aircraft {
             overlay.set_size_request (800, 600);
             add (overlay);
 
-            grid.attach (this.apihash, 1, 1);
+            grid.attach (this.demo, 1, 1);
 
             window_position = Gtk.WindowPosition.CENTER;
             set_titlebar(header);
@@ -86,7 +88,11 @@ namespace Aircraft {
             show_all ();
             //app.toast.connect (on_toast);
 
-            this.update_window ();
+            var conn = new Connection (this.mc);
+            conn.init_connection ();
+            conn.pass_phone (); // aquí llamar a un diálogo para obtener la clave.
+            conn.get_code ();
+            conn.get_chat_list ();
 
         }
 
@@ -116,20 +122,6 @@ namespace Aircraft {
             } else print("HAHA");
         }
 
-        public void update_window () {
-            var updater = new UpdateHandler (this.mc);
-            updater.update.connect (updater.telegram_signal);
-            updater.updater ();
 
-            updater.updater ();
-            updater.update.connect (updater.telegram_signal);
-            string tud = updater.get_meta ().get_last_update ();
-            if (tud == null) print ("miau\n");
-            print ("%s\n", tud);
-            if (tud.contains ("authorizationStateWaitEncryptionKey")) {
-                print ("miau\n");
-                updater.get_meta ().get_client ().encrypt ();
-            }
-        }
     }
 }
