@@ -1,6 +1,6 @@
 # Aircraft - The elementary-styled Telegram client
 
-![logo](https://raw.githubusercontent.com/Suzamax/Aircraft/master/data/icons/com.github.suzamax.Aircraft.svg)
+![icon](https://raw.githubusercontent.com/Suzamax/Aircraft/master/assets/icon.png)
 ## Pre-requisites
 
 Install [TDLib from Telegram](https://github.com/tdlib/td/): just compile it and make a `sudo make install`. The
