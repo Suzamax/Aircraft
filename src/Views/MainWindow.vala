@@ -85,19 +85,35 @@ namespace Aircraft {
             window_position = Gtk.WindowPosition.CENTER;
             set_titlebar(header);
 
+            debug ("Creating window done!");
+
             show_all ();
             //app.toast.connect (on_toast);
 
 
             var conn = new Connection (this.mc);
             conn.init_connection ();
-            conn.pass_phone (); // aquí llamar a un diálogo para obtener la clave.
+            /*while (true) {
+                var status = conn.get_status ();
+                print (status);
+                if (status.contains ("authorizationStateWaitPhoneNumber")){
+                    break;
+                }
+
+            }*/
+            debug ("Passing phone...");
+            conn.pass_phone ();
+            // aquí llamar a un diálogo para obtener la clave.
             while (true) {
+                debug ("Phone sent!");
                 string status = conn.get_status ();
                 if (status.contains ("authorizationStateWaitCode")) {
                     conn.get_code ();
                     break;
                 } else if (status.contains ("authorizationStateReady")) break;
+                //else if (status.contains ("authorizationStateWaitPhoneNumber"))
+                    //conn.pass_phone ();
+                else debug (status);
 
             }
 

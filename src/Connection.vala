@@ -14,27 +14,20 @@ namespace Aircraft {
             this.updater = new UpdateHandler (this.mc);
             this.updater.updater ();
             this.updater.update.connect (updater.telegram_signal);
-            string tud = updater.get_meta ().get_last_update ();
-//          print ("%s\n", tud);
-            //if (tud.contains ("authorizationStateWaitEncryptionKey")) {
-                updater.get_meta ().get_client ().encrypt ();
-                //this.updater.update.connect (updater.telegram_signal);
-                //this.updater.updater ();
-            //}
-
-            //this.log = new Logger (this.mc);
+            this.updater.get_meta ().get_client ().encrypt ();
         }
 
         public void pass_phone () {
+            debug ("Passing phone...");
+            this.updater.get_meta ().get_client ().phone ();
             this.updater.updater ();
-            this.updater.update.connect (updater.telegram_signal);
-            updater.get_meta ().get_client ().phone ();
             this.updater.updater ();
-            this.updater.update.connect (updater.telegram_signal);
+            //this.updater.update.connect (updater.telegram_signal);
         }
 
         public void get_code () {
             this.updater.updater ();
+            debug ("Getting code...");
             this.updater.update.connect (updater.telegram_signal);
             var dialog_code = new CodeDialog (this.mc);
         }

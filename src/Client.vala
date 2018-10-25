@@ -19,7 +19,7 @@ namespace Aircraft {
             this.api_hash = acc.api_hash;
             this.dir_path = "%s/com.github.suzamax.Aircraft".printf (GLib.Environment.get_user_config_dir ());
             Td_log.file_path ("%s/log.txt".printf(this.dir_path));
-            Td_log.verbosity_level(3);
+            Td_log.verbosity_level(1);
         }
 
         public void create_client () {
@@ -35,11 +35,12 @@ namespace Aircraft {
         }
 
         private void send (string data) {
+            debug ("Sending data...");
             Td_json.client_send(this.client, data);
         }
 
         public string receive () {
-            return Td_json.client_receive (this.client, 2.0);
+            return Td_json.client_receive (this.client, 1.0);
         }
 
 
@@ -74,7 +75,7 @@ namespace Aircraft {
                     "@type":  "setTdlibParameters",
                     "parameters":
                     {
-                        "application_version": "0.1.0",
+                        "application_version": "0.0.1",
                         "database_directory": "%s",
                         "use_message_database": true,
                         "api_id": "%s",
