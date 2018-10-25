@@ -13,7 +13,7 @@
    width="128"
    height="128"
    id="svg3049"
-   sodipodi:docname="aircraft.svg"
+   sodipodi:docname="com.github.suzamax.Aircraft.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -28,27 +28,15 @@
      inkscape:window-height="962"
      id="namedview142"
      showgrid="false"
-     inkscape:zoom="6.2109375"
-     inkscape:cx="48.288399"
-     inkscape:cy="66.933707"
+     inkscape:zoom="3.1054688"
+     inkscape:cx="-60.485619"
+     inkscape:cy="92.708956"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3049" />
   <defs
      id="defs3051">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient1069">
-      <stop
-         style="stop-color:#5e81ac;stop-opacity:1;"
-         offset="0"
-         id="stop1065" />
-      <stop
-         style="stop-color:#5e81ac;stop-opacity:0;"
-         offset="1"
-         id="stop1067" />
-    </linearGradient>
     <linearGradient
        id="linearGradient959">
       <stop
@@ -271,7 +259,7 @@
     </clipPath>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient1069"
+       xlink:href="#linearGradient959"
        id="linearGradient1071"
        x1="11.999989"
        y1="67.001808"
@@ -318,7 +306,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -350,7 +338,7 @@
      height="101"
      width="101" />
   <rect
-     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.5;fill:url(#linearGradient1071);stroke:#5181b8;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate;fill-opacity:1"
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.25;fill:url(#linearGradient1071);stroke:#5181b8;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate;fill-opacity:1"
      id="rect5505-21-3-1"
      y="15.501808"
      x="12.499989"
