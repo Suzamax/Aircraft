@@ -9,7 +9,7 @@
   <summary></summary>
   <description></description>
   <releases>
-    <release version="0.0.1" date="2018-05-05"/>
+    <release version="0.0.1" date="2018-10-25"/>
   </releases>
   <provides>
     <binary>com.github.suzamax.Aircraft</binary>
@@ -44,7 +44,7 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>Carlos</developer_name>
-  <url type="homepage">https://www.suzamax.one</url>
+  <url type="homepage">https://aircraftapp.suzamax.one</url>
   <url type="bugtracker">http://github.com/suzamax/Aircraft/issues</url>
   <url type="help">http://github.com/suzamax/Aircraft/issues</url>
   <update_contact>ratiosu.cct_AT_gmail.com</update_contact>
