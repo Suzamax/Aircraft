@@ -49,15 +49,17 @@ namespace Aircraft {
 
             debug ("Creating a new window...");
 
-            if (account.is_empty ()) {
-                NewAccountDialog.open ();
-            } else {
+            if (account.is_empty ())
+                NewAccountDialog.open (this);
+
+            //if (!account.is_empty ()) {
+            else {
                 conn_handler = new ConnectionHandler (meta);
                 conn_handler.init ();
                 window = new MainWindow (this, meta);
                 window.build_ui ();
-
             }
+
 
         }
 

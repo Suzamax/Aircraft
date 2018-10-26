@@ -5,6 +5,7 @@ using Json;
 namespace Aircraft {
     public class Client {
         // Properties
+        private string? number;
         private string? api_id;
         private string? api_hash;
         private void * client;
@@ -14,12 +15,13 @@ namespace Aircraft {
 
 
         // Client constructor
-        public Client (TelegramAccount acc) {
-            this.api_id = acc.api_id;
-            this.api_hash = acc.api_hash;
+        public Client (TelegramID acc) {
+            this.number = acc.get_number ();
+            this.api_id = acc.get_api_id ();
+            this.api_hash = acc.get_api_hash ();
             this.dir_path = "%s/com.github.suzamax.Aircraft".printf (GLib.Environment.get_user_config_dir ());
             Td_log.file_path ("%s/log.txt".printf(this.dir_path));
-            Td_log.verbosity_level(1);
+            Td_log.verbosity_level(2);
         }
 
         public void create_client () {
@@ -63,10 +65,9 @@ namespace Aircraft {
         }
 
         public void auth (Account a) {
-            string username = a.get_account ().username;
-            string number = a.get_account ().number;
-            string api_id = a.get_account ().api_id;
-            string api_hash = a.get_account ().api_hash;
+            this.number = a.get_id ().get_number ();
+            string api_id = a.get_id ().get_api_id ();
+            string api_hash = a.get_id ().get_api_hash ();
             string dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), "com.github.suzamax.Aircraft");
             string db_path = "%s/%s".printf (dir_path, "database");
             string data =
@@ -121,9 +122,9 @@ namespace Aircraft {
             """
                 {
                     "@type": "setAuthenticationPhoneNumber",
-                    "phone_number": "+34609370884"
+                    "phone_number": "%s"
                 }
-            """;
+            """.printf(this.number);
             this.send (data);
         }
 

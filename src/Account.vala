@@ -5,7 +5,7 @@ public class Aircraft.Account : Object {
     private string file_path;
 
     private Client tdclient;
-    private TelegramAccount? acc;
+    private TelegramID? id;
 
     public Account (Gtk.Application app) {
         Object();
@@ -13,19 +13,19 @@ public class Aircraft.Account : Object {
         this.file_path = "%s/%s".printf (dir_path, "account.json");
     }
 
-    private void save (bool overwrite = true) {
+    private void save (TelegramID id, bool overwrite = true) {
         try {
-            var dir = File.new_for_path (dir_path);
+            var dir = File.new_for_path (this.dir_path);
             if (!dir.query_exists ())
                 dir.make_directory ();
 
-            var file = File.new_for_path (file_path);
+            var file = File.new_for_path (this.file_path);
             if (file.query_exists () && !overwrite)
                 return;
 
             var builder = new Json.Builder ();
             builder.begin_array ();
-            var node = acc.serialize ();
+            var node = id.serialize ();
             builder.add_value (node);
 
             builder.end_array ();
@@ -56,30 +56,30 @@ public class Aircraft.Account : Object {
             parser.load_from_data (contents, -1);
             var array = parser.get_root ().get_array ();
 
-            acc = new TelegramAccount ();
+            id = new TelegramID ();
             array.foreach_element ((_arr, _i, node) => {
                 var obj = node.get_object ();
-                var account = TelegramAccount.parse (obj);
+                var account = TelegramID.parse (obj);
 
                 if (account != null) {
-                    acc = TelegramAccount.parse (obj);
+                    id = TelegramID.parse (obj);
                 }
             });
 
-            debug ("Telegram account loaded");
+            debug ("Telegram Database API and number loaded!");
         } catch (GLib.Error e){ warning (e.message); }
     }
 
 
     public bool is_empty () {
-        return this.acc == null;
+        return this.id == null;
     }
 
     public void init () {
         load ();
 
-        if (this.acc != null) {
-            this.tdclient = new Client (this.acc);
+        if (this.id != null) {
+            this.tdclient = new Client (this.id);
             tdclient.create_client ();
         }
     }
@@ -88,13 +88,14 @@ public class Aircraft.Account : Object {
         return this.tdclient;
     }
 
-    public TelegramAccount get_account () {
-        return this.acc;
+    public TelegramID get_id () {
+        return this.id;
     }
 
-    public void add (TelegramAccount tac) {
-        debug ("Adding the user...");
-        save ();
+    public void add (TelegramID id) {
+
+        debug ("Adding the ID...");
+        save (id);
     }
 
 

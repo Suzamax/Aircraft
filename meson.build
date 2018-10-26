@@ -115,7 +115,7 @@ code_files = files(
     'src/Connection.vala',
     'src/ConnectionHandler.vala',
     'src/MetadataComponent.vala',
-    'src/TelegramAccount.vala',
+    'src/TelegramID.vala',
     'src/UpdateHandler.vala',
     'src/Dialogs/CodeDialog.vala',
     'src/Dialogs/NewAccountDialog.vala',
