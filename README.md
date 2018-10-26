@@ -8,6 +8,8 @@ libraries should have been installed in `/usr/local/lib`.
 
 Copy the `lib/td*.pc` into `/usr/local/share/pkgconfig/`, otherwise the vapis won't work.
 
+Also, dependencies, there are some **-devs** that you will need. Details are in the `meson.build` file.
+
 
 ## Installation
 

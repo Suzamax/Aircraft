@@ -34,14 +34,14 @@ namespace Aircraft {
 
 
 
-        public void get_chat_list () {
+        public string get_chat_list () {
             this.updater.updater ();
             this.updater.updater ();
-            this.updater.get_chats ();
+            return this.updater.get_chats ();
         }
 
         public string get_status () {
-            this.mc.get_client ().status ();
+            //this.mc.get_client ().status (); // REMOVE; TOO MANY REQUESTS!!!!!
             return this.mc.get_client ().receive ();
         }
 

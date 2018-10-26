@@ -113,6 +113,7 @@ code_files = files(
     'src/Application.vala',
     'src/Client.vala',
     'src/Connection.vala',
+    'src/ConnectionHandler.vala',
     'src/MetadataComponent.vala',
     'src/TelegramAccount.vala',
     'src/UpdateHandler.vala',

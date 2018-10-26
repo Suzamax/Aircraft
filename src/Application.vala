@@ -26,7 +26,7 @@ namespace Aircraft {
     public static Gtk.Application app;
 
     public static Window window_dummy;
-
+    public static ConnectionHandler conn_handler;
     public static Client telegram_client; // The TDLib JSON Client
     public static Account? account; // The accounts handler
     public static MainWindow window; // Main Window is handled here
@@ -52,6 +52,8 @@ namespace Aircraft {
             if (account.is_empty ()) {
                 NewAccountDialog.open ();
             } else {
+                conn_handler = new ConnectionHandler (meta);
+                conn_handler.init ();
                 window = new MainWindow (this, meta);
                 window.build_ui ();
 

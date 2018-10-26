@@ -70,7 +70,7 @@ namespace Aircraft {
             header.show_all();
 
             //this.apihash = new Gtk.Label (mc.get_account ().get_account ().api_hash);
-            this.demo = new Gtk.Label ("IT WORKS!");
+            this.demo = new Gtk.Label ("Connected!");
             grid = new Gtk.Grid();
 
             toast = new Granite.Widgets.Toast ("");
@@ -89,39 +89,6 @@ namespace Aircraft {
 
             show_all ();
             //app.toast.connect (on_toast);
-
-
-            var conn = new Connection (this.mc);
-            conn.init_connection ();
-            /*while (true) {
-                var status = conn.get_status ();
-                print (status);
-                if (status.contains ("authorizationStateWaitPhoneNumber")){
-                    break;
-                }
-
-            }*/
-            debug ("Passing phone...");
-            conn.pass_phone ();
-            // aquí llamar a un diálogo para obtener la clave.
-            while (true) {
-                debug ("Phone sent!");
-                string status = conn.get_status ();
-                if (status.contains ("authorizationStateWaitCode")) {
-                    conn.get_code ();
-                    break;
-                } else if (status.contains ("authorizationStateReady")) break;
-                //else if (status.contains ("authorizationStateWaitPhoneNumber"))
-                    //conn.pass_phone ();
-                else debug (status);
-
-            }
-
-
-            conn.get_chat_list ();
-
-
-
 
 
         }

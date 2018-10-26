@@ -24,8 +24,8 @@ namespace Aircraft {
             this.mc.set_last_update (this.client.receive ());
         }
 
-        public void get_chats () {
-            this.mc.get_client (). chats ();
+        public string get_chats () {
+            return this.mc.get_client (). chats ();
         }
 
 

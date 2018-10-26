@@ -102,7 +102,7 @@ namespace Aircraft {
         }
 
 
-        public void chats () {
+        public string chats () {
             string data =
             """
                 {
@@ -113,6 +113,7 @@ namespace Aircraft {
                 }
             """;
             this.send (data);
+            return "Test";
         }
 
         public void phone () {
