@@ -13,7 +13,7 @@ namespace Aircraft {
         public void init_connection () {
             this.updater = new UpdateHandler (this.mc);
             this.updater.updater ();
-            this.updater.update.connect (updater.telegram_signal);
+            //this.updater.update.connect (updater.telegram_signal);
             this.updater.get_meta ().get_client ().encrypt ();
         }
 
@@ -28,7 +28,7 @@ namespace Aircraft {
         public void get_code () {
             this.updater.updater ();
             debug ("Getting code...");
-            this.updater.update.connect (updater.telegram_signal);
+            //this.updater.update.connect (updater.telegram_signal);
             var dialog_code = new CodeDialog (this.mc);
         }
 

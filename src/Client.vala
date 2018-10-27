@@ -21,7 +21,7 @@ namespace Aircraft {
             this.api_hash = acc.get_api_hash ();
             this.dir_path = "%s/com.github.suzamax.Aircraft".printf (GLib.Environment.get_user_config_dir ());
             Td_log.file_path ("%s/log.txt".printf(this.dir_path));
-            Td_log.verbosity_level(2);
+            Td_log.verbosity_level(3);
         }
 
         public void create_client () {
