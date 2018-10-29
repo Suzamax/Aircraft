@@ -110,6 +110,7 @@ message ('Adds files to build')
 
 code_files = files(
     'src/Account.vala',
+    'src/AircraftDBus.vala',
     'src/Application.vala',
     'src/Client.vala',
     'src/Connection.vala',
@@ -118,9 +119,11 @@ code_files = files(
     'src/Serializer.vala',
     'src/TelegramID.vala',
     'src/UpdateHandler.vala',
+    'src/UpdateStates.vala',
     'src/Dialogs/CodeDialog.vala',
     'src/Dialogs/NewAccountDialog.vala',
     'src/Utils/ActionUtils.vala',
+    'src/Utils/MessageUtils.vala',
     'src/Views/ChatListView.vala',
     'src/Views/MainWindow.vala'
 )

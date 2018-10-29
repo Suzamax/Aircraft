@@ -45,7 +45,9 @@ namespace Aircraft {
             return Td_json.client_receive (this.client, 1.0);
         }
 
-
+        public void* get_client () {
+            return this.client;
+        }
 
 
 

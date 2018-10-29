@@ -25,7 +25,7 @@ public class Aircraft.Account : Object {
 
             var builder = new Json.Builder ();
             builder.begin_array ();
-            var node = Serializer.serializer (id);
+            var node = Serializer.serializer_account (id);
             builder.add_value (node);
 
             builder.end_array ();

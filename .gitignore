@@ -2,3 +2,4 @@ build/
 valacompiler/
 *~
 src/datos.txt
+.buildconfig

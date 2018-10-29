@@ -2,8 +2,10 @@ namespace Aircraft {
 
 
     public class MainWindow : Gtk.Window {
-        // Metadatos
+        // Metadata
         private MetadataComponent mc;
+        // Lists
+        private ChatListView chats;
         // Properties of window
         private Gtk.Overlay overlay;
         private Granite.Widgets.Toast toast;
@@ -28,7 +30,7 @@ namespace Aircraft {
              { ACTION_QUIT, action_quit }
         };
 
-        // Constructores
+        // Constructors
         public MainWindow (Aircraft.Application aircraft_app, MetadataComponent mc) {
             Object(application: aircraft_app,
                 app: aircraft_app,
@@ -61,6 +63,7 @@ namespace Aircraft {
 
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+
             spinner = new Gtk.Spinner();
             spinner.active = true;
 
@@ -69,8 +72,10 @@ namespace Aircraft {
             header.title = "Aircraft";
             header.show_all();
 
+            this.chats.update_chats ();
+
             //this.apihash = new Gtk.Label (mc.get_account ().get_account ().api_hash);
-            this.demo = new Gtk.Label ("Connected!");
+            this.demo = new Gtk.Label ("It works!");
             grid = new Gtk.Grid();
 
             toast = new Granite.Widgets.Toast ("");

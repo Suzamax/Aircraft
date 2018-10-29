@@ -79,6 +79,8 @@ namespace Aircraft {
             app.meta = new MetadataComponent(account.get_client (), account);
             //print (app.meta.get_client ().test ());
             app.meta.get_client ().auth (account);
+            var dbus = new DBusHandler ();
+            dbus.init_dbus (app.meta);
 
             // Create Launcher ??
 

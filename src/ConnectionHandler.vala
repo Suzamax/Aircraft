@@ -37,10 +37,10 @@ namespace Aircraft {
 
             }
         }
-
+        /*
         public string get_chats () {
             return this.conn.get_chat_list ();
         }
-
+        */
     }
 }

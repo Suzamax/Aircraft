@@ -61,8 +61,9 @@ public class Aircraft.NewAccountDialog : Gtk.Dialog {
                 this.api_hash_label.label = "This field cannot be blank!";
             else {
                 add_account ();
-                this.dialog = null;
-                destroy ();
+                //this.dialog = null;
+                return;
+                //destroy ();
             }
         });
         nothanks = new Gtk.Button.with_label ("No, thanks");

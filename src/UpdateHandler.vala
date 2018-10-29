@@ -19,16 +19,16 @@ namespace Aircraft {
         public MetadataComponent get_meta () {
             return this.mc;
         }
-
+        /*
         public void telegram_signal () {
-            //this.mc.set_last_update (this.client.receive ());
+            this.mc.set_last_update (this.client.receive ());
         }
 
         public string get_chats () {
             return this.mc.get_client (). chats ();
         }
 
-
+        */
 
 
     }

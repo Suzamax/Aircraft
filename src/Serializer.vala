@@ -1,7 +1,7 @@
 namespace Aircraft {
     public class Serializer {
 
-        public static Json.Node serializer (TelegramID id) {
+        public static Json.Node serializer_account (TelegramID id) {
             var builder = new Json.Builder ();
             builder.begin_object ();
             /*builder.set_member_name ("hash");
@@ -20,5 +20,6 @@ namespace Aircraft {
             builder.end_object ();
             return builder.get_root ();
         }
+
     }
 }

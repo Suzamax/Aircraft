@@ -33,12 +33,13 @@ namespace Aircraft {
         }
 
 
-
+        /*
         public string get_chat_list () {
             this.updater.updater ();
             this.updater.updater ();
             return this.updater.get_chats ();
         }
+        */
 
         public string get_status () {
             //this.mc.get_client ().status (); // REMOVE; TOO MANY REQUESTS!!!!!
