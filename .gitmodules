@@ -1,0 +1,3 @@
+[submodule "tdlib"]
+	path = tdlib
+	url = https://github.com/tdlib/td
