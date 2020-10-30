@@ -1,0 +1,4 @@
+data/one.suzamax.Aircraft.desktop.in
+data/one.suzamax.Aircraft.appdata.xml.in
+data/one.suzamax.Aircraft.gschema.xml
+src/aircraft-window.ui

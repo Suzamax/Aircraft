@@ -1,9 +1,0 @@
-prefix=/usr/local
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-
-Name: tdlog
-Description: TD Telegram client - Logger
-Version: 1.0.0
-Libs: -L${libdir} -ltdjson
-Cflags: -Wl,-rpath=/usr/local/lib

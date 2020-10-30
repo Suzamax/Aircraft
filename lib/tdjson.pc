@@ -1,9 +1,0 @@
-prefix=/usr/local
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-
-Name: tdjson
-Description: TD Telegram client - JSON parser
-Version: 1.0.0
-Libs: -L${libdir} -ltdjson
-Cflags: -Wl,-rpath=/usr/local/lib

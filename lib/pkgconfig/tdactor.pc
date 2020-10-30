@@ -1,0 +1,9 @@
+prefix=/home/carlos/Proyectos/Aircraft
+
+Name: tdactor
+Description: Telegram Library - Actor
+Version: 1.6.9
+
+CFlags: -I"${prefix}/include"
+Libs: -L"${prefix}/lib" -ltdactor
+Requires.private: tdutils

@@ -1,0 +1,9 @@
+prefix=/home/carlos/Proyectos/Aircraft
+
+Name: tdapi
+Description: Telegram Library - API
+Version: 1.6.9
+
+CFlags: -I"${prefix}/include"
+Libs: -L"${prefix}/lib" -ltdapi
+Requires.private: tdutils
