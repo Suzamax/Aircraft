@@ -1,4 +1,6 @@
-# ![icon](https://raw.githubusercontent.com/Suzamax/Aircraft/master/assets/icon.png =48x) Aircraft - The GTK Telegram client
+# Aircraft - The GTK Telegram client
+
+<img src="https://raw.githubusercontent.com/Suzamax/Aircraft/master/assets/icon.png" width="48">
 
 This app is a GTK implementation using *gtkmm* of TdLib. The official client of Telegram is using Qt and it has an Operating System agnostic interface, but tends to be more Windows-like than a Linux interface.
 
