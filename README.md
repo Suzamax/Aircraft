@@ -26,17 +26,15 @@ Or import this project to GNOME Builder, and build and execute directly in the G
 
 ## TODOs
 
-[] Make the pkgconfig use relative paths instead of absolute. You need to change the prexix in every file at `./lib/pkgconfig/*.pc`. This can be easily done with this shell command in the repository root directory (it works in Bash and zsh):
-
+- [ ] Make the pkgconfig use relative paths instead of absolute. You need to change the prexix in every file at `./lib/pkgconfig/*.pc`. This can be easily done with this shell command in the repository root directory (it works in Bash and zsh):
 ```bash
 CURRENT_DIR=`pwd`; for f in `ls lib/pkgconfig`; do sed -i'' "s|/home/carlos/Proyectos/Aircraft|$CURRENT_DIR|" lib/pkgconfig/$f; done;
 ```
-
 Being the absolute path the directory where this Git repo is stored
 
-[] Complete the Telegram thread classes.
-[] Create the User Interface.
-[] And so on...
+- [ ] Complete the Telegram thread classes.
+- [ ] Create the User Interface.
+- [ ] And so on...
 
 Also there's more TODOs in the code comments.
 
