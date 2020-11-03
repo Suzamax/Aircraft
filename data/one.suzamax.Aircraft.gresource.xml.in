@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="@APPLICATION_PREFIX@">
+    <file preprocess="xml-stripblanks">ui/window.glade</file>
+    <file preprocess="xml-stripblanks">ui/headerbar.glade</file>
+    <file preprocess="xml-stripblanks">ui/preferences.glade</file>
+    <file preprocess="xml-stripblanks">ui/menu.glade</file>
+  </gresource>
+</gresources>

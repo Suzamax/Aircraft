@@ -1,4 +1,4 @@
-/* aircraft-window.cpp
+/* aircraft-window.h
  *
  * Copyright 2020 Carlos Cañellas (Suzamax)
  *
@@ -27,19 +27,27 @@
  * authorization.
  */
 
-#include "aircraft-window.h"
+#pragma once
 
-AircraftWindow::AircraftWindow()
-	: Glib::ObjectBase("AircraftWindow")
-	, Gtk::Window()
-	, headerbar(nullptr)
-	, label(nullptr)
+#include <gtkmm/applicationwindow.h>
+#include <giomm/settings.h>
+#include <gtkmm/builder.h>
+#include <gtkmm/headerbar.h>
+#include <gtkmm/label.h>
+
+class AircraftWindow : public Gtk::ApplicationWindow
 {
-	builder = Gtk::Builder::create_from_resource("/one/suzamax/Aircraft/aircraft-window.ui");
-	builder->get_widget("headerbar", headerbar);
-	builder->get_widget("label", label);
-	add(*label);
-	label->show();
-	set_titlebar(*headerbar);
-	headerbar->show();
-}
+public:
+	AircraftWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
+	virtual ~AircraftWindow();
+	static AircraftWindow * create();
+
+private:
+    Glib::RefPtr<Gtk::Builder>  builder;
+    Glib::RefPtr<Gio::Settings> settings;
+    Gtk::HeaderBar*             headerBar;
+    Gtk::Label*                 firstLabel;
+    Gtk::Label*                 secondLabel;
+
+    void setHeaderBar();
+};
