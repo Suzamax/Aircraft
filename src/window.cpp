@@ -1,16 +1,18 @@
 #include "window.h"
+
 #include <gtkmm/settings.h>
+
 #include <iostream>
+
 #include "projectdefinitions.h"
 
-AircraftWindow::AircraftWindow(Gtk::ApplicationWindow::BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder)
+Window::Window(Gtk::ApplicationWindow::BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder)
         : Gtk::ApplicationWindow(cobject),
           builder(builder),
           settings(nullptr),
           headerBar(nullptr),
           firstLabel(nullptr),
-          secondLabel(nullptr)
-{
+          secondLabel(nullptr) {
     builder->get_widget("firstLabel", firstLabel);
     if (!firstLabel) {
         throw std::runtime_error("No \"firstLabel\" object in window.glade");
@@ -25,15 +27,17 @@ AircraftWindow::AircraftWindow(Gtk::ApplicationWindow::BaseObjectType* cobject, 
     settings->bind("first", firstLabel->property_label());
     settings->bind("second", secondLabel->property_visible());
 
+    set_icon(Gdk::Pixbuf::create_from_resource(projectdefinitions::getApplicationPrefix() + "icons/48x48/icon.png"));
     setHeaderBar();
 }
 
-AircraftWindow::~AircraftWindow() {}
+Window::~Window() {
+}
 
-AircraftWindow * AircraftWindow::create() {
+Window* Window::create() {
     auto builder = Gtk::Builder::create_from_resource(projectdefinitions::getApplicationPrefix() + "ui/window.glade");
 
-    AircraftWindow * window = nullptr;
+    Window* window = nullptr;
     builder->get_widget_derived("window", window);
     if (!window) {
         throw std::runtime_error("No \"window\" object in window.glade");
@@ -41,7 +45,7 @@ AircraftWindow * AircraftWindow::create() {
     return window;
 }
 
-void AircraftWindow::setHeaderBar() {
+void Window::setHeaderBar() {
     auto builder =
             Gtk::Builder::create_from_resource(projectdefinitions::getApplicationPrefix() + "ui/headerbar.glade");
     builder->get_widget("headerBar", headerBar);

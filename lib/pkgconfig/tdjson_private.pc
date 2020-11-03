@@ -1,9 +1,0 @@
-prefix=/home/carlos/Proyectos/Aircraft
-
-Name: tdjson_private
-Description: Telegram Library - JSON interface (private)
-Version: 1.6.9
-
-CFlags: -I"${prefix}/include"
-Libs: -L"${prefix}/lib" -ltdjson_private
-Requires.private: tdclient tdutils

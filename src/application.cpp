@@ -1,20 +1,25 @@
 #include "application.h"
-
 #include <iostream>
-
 #include "projectdefinitions.h"
 
-Application::Application() : Gtk::Application(projectdefinitions::getApplicationID() + ".application") {
+// Telegram
+#include "tg_thread.hpp"
+#include "tg_state.hpp"
+#include "tg_client.hpp"
+#include "tg_auth.hpp"
+
+Application::Application(TgState * state) : Gtk::Application(projectdefinitions::getApplicationID() + ".application") {
+    state_ = state;
 }
 
 Application::~Application() {
 }
 
-Glib::RefPtr<Application> Application::create() {
-    return Glib::RefPtr<Application>(new Application());
+Glib::RefPtr<Application> Application::create(TgState * state) {
+    return Glib::RefPtr<Application>(new Application(state));
 }
 
-AircraftWindow * Application::createWindow() {
+Window * Application::createWindow() {
     auto window = Window::create();
     add_window(*window);
     window->signal_hide().connect(sigc::bind(sigc::mem_fun(*this, &Application::on_hide_window), window));
@@ -77,5 +82,6 @@ void Application::on_action_quit() {
     for (auto window : windows) {
         window->hide();
     }
+
     quit();
 }

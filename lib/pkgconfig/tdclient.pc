@@ -1,9 +1,0 @@
-prefix=/home/carlos/Proyectos/Aircraft
-
-Name: tdclient
-Description: Telegram Library - C++ Interface
-Version: 1.6.9
-
-CFlags: -I"${prefix}/include"
-Libs: -L"${prefix}/lib" -ltdclient
-Requires.private: tdapi tdcore

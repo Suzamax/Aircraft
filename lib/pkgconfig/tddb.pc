@@ -1,9 +1,0 @@
-prefix=/home/carlos/Proyectos/Aircraft
-
-Name: tddb
-Description: Telegram Library - Database
-Version: 1.6.9
-
-CFlags: -I"${prefix}/include"
-Libs: -L"${prefix}/lib" -ltddb
-Requires.private: tdactor tdutils tdsqlite

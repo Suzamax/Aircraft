@@ -1,9 +1,0 @@
-prefix=/home/carlos/Proyectos/Aircraft
-
-Name: tdjson_static
-Description: Telegram Library - JSON interface (static)
-Version: 1.6.9
-
-CFlags: -I"${prefix}/include"
-Libs: -L"${prefix}/lib" -ltdjson_static
-Requires.private: tdjson_private

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="aircraft">
 	<schema id="one.suzamax.Aircraft" path="/one/suzamax/Aircraft/">
+		<key name="first" type="s">
+			<choices>
+				<choice value='one'/>
+				<choice value='two'/>
+				<choice value='three'/>
+			</choices>
+			<default>'one'</default>
+			<summary>First</summary>
+			<description>First Setting</description>
+		</key>
+		<key name="second" type="b">
+			<default>false</default>
+			<summary>Second</summary>
+			<description>Second Setting</description>
+		</key>
 	</schema>
 </schemalist>

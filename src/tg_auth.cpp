@@ -1,113 +1,126 @@
-/* aircraft-window.cpp
- *
- * Copyright 2020 Carlos Cañellas (Suzamax)
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * Except as contained in this notice, the name(s) of the above copyright
- * holders shall not be used in advertising or otherwise to promote the sale,
- * use or other dealings in this Software without prior written
- * authorization.
- */
 #include "tg_auth.hpp"
+#include "overloaded.h"
+#include <td/telegram/td_api.h>
+#include <td/tl/TlObject.h>
+#include <td/telegram/td_api.hpp>
+#include <cstdlib>
 
 namespace td_api = td::td_api;
 
-namespace detail {
-    template <class... Fs> struct overload;
-
-    template <class F> struct overload<F> : public F
-    {
-        explicit overload(F f) : F(f) {}
-    };
-    template <class F, class... Fs>
-    struct overload<F, Fs...>
-        : public overload<F>
-        , overload<Fs...>
-    {
-        overload(F f, Fs... fs) : overload<F>(f), overload<Fs...>(fs...) {}
-        using overload<F>::operator();
-        using overload<Fs...>::operator();
-    };
-}  // namespace detail
-
-template <class... F>
-auto overloaded(F... f) {
-    return detail::overload<F...>(f...);
+TgAuth::TgAuth(TgClient *client) {
+    client_ = client;
+    authentication_query_id_ = 0;
 }
 
-class TgAuth
+TgAuth::~TgAuth()
 {
-    public:
-        TgAuth()
-        {
-            // TODO Complete the auth object.
-            //      Will it be static?
+    delete client_;
+    authorization_state_.reset();
+}
+
+
+auto TgAuth::create_authentication_query_handler() {
+    return [this, id = authentication_query_id_](Object object) {
+        if (id == authentication_query_id_) {
+            check_authentication_error(std::move(object));
         }
+    };
+}
 
+void TgAuth::check_authentication_error(Object object) {
+    if (object->get_id() == td_api::error::ID) {
+        auto error = td::move_tl_object_as<td_api::error>(object);
+        std::cout << "Error: " << to_string(error) << std::flush;
+        this->on_authorization_state_update();
+    }
+}
 
-
-    private:
-        using Object = td_api::object_ptr<td_api::Object>;
-
-        std::uint64_t current_query_id_{0};
-        std::uint64_t authentication_query_id_{0};
-
-        td_api::object_ptr<td_api::AuthorizationState> authorization_state_;
-
-        bool are_authorized_{false};
-        bool need_restart_{false};
-
-
-
-
-
-        void on_authorization_state_update()
-        {
-            authentication_query_id_++;
-            td_api::downcast_call(
-                authorization_state_,
-                overloaded(
-                    [this](td_api::authorizationStateReady &)
-                    {
-                        are_authorized_ = true;
+void TgAuth::on_authorization_state_update()
+{
+    authentication_query_id_++;
+    td_api::downcast_call(
+            *authorization_state_,
+            overloaded(
+                    [this](td_api::authorizationStateReady &) {
+                        client_->getState()->are_authorized_ = true;
                         std::cout << "Got authorization" << std::endl;
                     },
-                    [this](td_api::authorizationStateLoggingOut &)
-                    {
-                        are_authorized_ = false;
-                        std::cout << "Logging out..." << std::endl;
+                    [this](td_api::authorizationStateLoggingOut &) {
+                        client_->getState()->are_authorized_ = false;
+                        std::cout << "Logging out" << std::endl;
                     },
-                    [this](td_api::authorizationStateClosing &)
-                    {
-                        std::cout << "Closing..." << std::endl;
-                    },
-                    [this](td_api::authorizationStateClosed &)
-                    {
-                        are_authorized_ = false;
-                        need_restart_ = true;
+                    [this](td_api::authorizationStateClosing &) { std::cout << "Closing" << std::endl; },
+                    [this](td_api::authorizationStateClosed &) {
+                        client_->getState()->are_authorized_ = false;
+                        client_->getState()->need_restart_ = true;
                         std::cout << "Terminated" << std::endl;
                     },
+                    [this](td_api::authorizationStateWaitCode &) {
+                        std::cout << "Enter authentication code: " << std::flush;
+                        std::string code;
+                        std::cin >> code;
+                        client_->send_query(td_api::make_object<td_api::checkAuthenticationCode>(code),
+                                            this->create_authentication_query_handler());
+                    },
+                    [this](td_api::authorizationStateWaitRegistration &) {
+                        std::string first_name;
+                        std::string last_name;
+                        std::cout << "Enter your first name: " << std::flush;
+                        std::cin >> first_name;
+                        std::cout << "Enter your last name: " << std::flush;
+                        std::cin >> last_name;
+                        client_->send_query(td_api::make_object<td_api::registerUser>(first_name, last_name),
+                                            this->create_authentication_query_handler());
+                    },
+                    [this](td_api::authorizationStateWaitPassword &) {
+                        std::cout << "Enter authentication password: " << std::flush;
+                        std::string password;
+                        std::getline(std::cin, password);
+                        client_->send_query(td_api::make_object<td_api::checkAuthenticationPassword>(password),
+                                            this->create_authentication_query_handler());
+                    },
+                    [this](td_api::authorizationStateWaitOtherDeviceConfirmation &state) {
+                        std::cout << "Confirm this login link on another device: " << state.link_ << std::endl;
+                    },
+                    [this](td_api::authorizationStateWaitPhoneNumber &) {
+                        std::cout << "Enter phone number: " << std::flush;
+                        std::string phone_number;
+                        std::cin >> phone_number;
+                        client_->send_query(td_api::make_object<td_api::setAuthenticationPhoneNumber>(phone_number, nullptr),
+                                            this->create_authentication_query_handler());
+                    },
+                    [this](td_api::authorizationStateWaitEncryptionKey &)
+                    {
+                        std::cout << "Enter encryption key or DESTROY" << std::endl;
+                        std::string key;
+                        std::getline(std::cin, key);
+                        if (key == "DESTROY") {
+                            client_->send_query(td_api::make_object<td_api::destroy>(), this->create_authentication_query_handler());
+                        } else {
+                            client_->send_query(td_api::make_object<td_api::checkDatabaseEncryptionKey>(std::move(key)),
+                                                this->create_authentication_query_handler());
+                        }
+                    },
+                    [this](td_api::authorizationStateWaitTdlibParameters &)
+                    {
+                        char * end;
+                        auto parameters = td_api::make_object<td_api::tdlibParameters>();
+                        // Add parameters
+                        parameters->database_directory_ = "db";
+                        parameters->use_message_database_ = true;
+                        parameters->use_secret_chats_ = true;
+                        parameters->api_id_ = strtol(std::getenv("API_ID"), &end, 10);
+                        parameters->api_hash_ = std::getenv("API_HASH");
+                        parameters->system_language_code_ = "en";
+                        parameters->device_model_ = "Desktop";
+                        parameters->application_version_ = "0.2.0";
+                        parameters->enable_storage_optimizer_ = true;
 
-                )
+                        // Now use the client object's method to send this query to the Telegram servers
+                        client_->send_query(td_api::make_object<td_api::setTdlibParameters>(std::move(parameters)),
+                                            create_authentication_query_handler());
+                    }
             )
-        }
-
+    );
 }
+

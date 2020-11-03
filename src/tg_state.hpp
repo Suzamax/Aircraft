@@ -9,6 +9,9 @@
 namespace td_api = td::td_api;
 using Object = td_api::object_ptr<td_api::Object>;
 
+/**
+ * This class has the Telegram state of the application.
+ */
 class TgState
 {
     public:

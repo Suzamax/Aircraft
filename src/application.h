@@ -2,20 +2,26 @@
 #define APPLICATION_H
 
 #include <gtkmm/application.h>
-
 #include "preferences.h"
-#include "aircraft-window.h"
+#include "window.h"
+
+// Telegram
+#include "tg_thread.hpp"
+#include "tg_state.hpp"
+#include "tg_client.hpp"
+#include "tg_auth.hpp"
 
 class Application : public Gtk::Application {
 public:
     virtual ~Application() override;
 
-    static Glib::RefPtr<Application> create();
+    static Glib::RefPtr<Application> create(TgState * state);
 
 private:
-    Application();
+    Application(TgState * state);
 
-    AircraftWindow * createWindow();
+    Window * createWindow();
+    TgState * state_;
 
     void on_activate() override;
     void on_startup() override;

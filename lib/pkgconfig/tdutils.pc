@@ -1,9 +1,0 @@
-prefix=/home/carlos/Proyectos/Aircraft
-
-Name: tdutils
-Description: Telegram Library - Utils
-Version: 1.6.9
-
-CFlags: -I"${prefix}/include"
-Libs: -L"${prefix}/lib" -ltdutils
-Libs.private: -pthread -L"/usr/lib/x86_64-linux-gnu" -l:libcrypto.so -ldl -L"/usr/lib/x86_64-linux-gnu" -l:libz.so
