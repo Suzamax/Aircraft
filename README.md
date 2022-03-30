@@ -1,3 +1,6 @@
+**This won't be maintained or developed - use https://github.com/melix99/telegrand instead!**
+
+
 # Aircraft - The GTK Telegram client
 
 <img src="https://raw.githubusercontent.com/Suzamax/Aircraft/master/assets/icon.png" width="48">
